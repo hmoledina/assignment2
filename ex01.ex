@@ -2,8 +2,10 @@ ExUnit.start
 Code.load_file "support.ex"
 
 defmodule Ex01 do
+  import Integer
   use ExUnit.Case
   import Support
+
 
   ##############################################################################
   # 1: 5 questions,  30 points available                                       #
@@ -36,22 +38,22 @@ defmodule Ex01 do
   # Write a function that adds two numbers using fn syntax #
   ##########################################################
 
-  sum2a = your_anonymous_function(1, 2)
+  sum2a = fn(x, y) -> x + y end
 
   assert sum2a.(1, 2)    == 3
   assert sum2a.(-1, 100) == 99
-
+  IO.inspect sum2a.(1,2)
   ##################
   # 1.2:  5 points #
   ##########################################################
   # Write a function that adds two numbers using & syntax  #
   ##########################################################
 
-  sum2b = your_anonymous_function(1, 2)
+  sum2b = &(&1 + &2)
 
   assert sum2b.(1, 2)    == 3
   assert sum2b.(-1, 100) == 99
-
+  IO.inspect sum2b.(-1,100)
   ##################
   # 1.3:  5 points #
   #####################################################################
@@ -60,22 +62,23 @@ defmodule Ex01 do
   # no explicit + operators in your function                          #
   #####################################################################
 
-  sum3a = your_anonymous_function(1, 2, 3)
-
+  sum3a = fn(x, y, z) ->
+  sum2b.(sum2b.(x,y),z)
+  end
   assert sum3a.(1, 3, 5)  == 9
   assert sum3a.(1, -3, 5) == 3
-
+  IO.inspect sum3a.(1,-3,5)
   ##################
   # 1.4:  5 points #
   ####################################
   # Do the same using the & notation #
   ####################################
 
-  sum3b = your_anonymous_function
+  sum3b = &(&1 + &2 + &3)
 
   assert sum3b.(1, 3, 5)  == 9
   assert sum3b.(1, -3, 5) == 3
-
+  IO.inspect sum3b.(1,3,5)
   ##################
   # 1.5: 10 points #
   ########################################################################
@@ -86,14 +89,17 @@ defmodule Ex01 do
   # function. The examples below will make this clearer :)               #
   ########################################################################
 
-  create_adder = your_anonymous_function(1)
+  create_adder = fn(a) ->
+    fn(b) ->
+      a + b
+    end
+  end
 
   add_2  = create_adder.(2)
   add_99 = create_adder.(99)
 
   assert add_2.(3)  == 5
   assert add_99.(3) == 102
+  IO.inspect add_2.(3)
 
 end
-
-

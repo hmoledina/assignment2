@@ -54,8 +54,10 @@ defmodule Ex03 do
   be used if needed.)
 
   """
-
-  def odd_even . . . "your code"
+  #defmodule Ex03 do
+  def odd_even([head|tail]), do: [if(Integer.is_even(head), do: :even, else: :odd)| odd_even(tail)]
+  def odd_even([]), do: []
+  #end
 
 
   ##############################################################################
@@ -76,8 +78,11 @@ defmodule Ex03 do
       true
 
   """
+  #defmodule Ex03 do
+    def list_contains([],n), do: []
+    def list_contains([head|tail],n), do: if((head==n), do: true, else: list_contains(tail,n))
 
-  def list_contains . .. "your code"
+  #end
 
   ##############################################################################
   # 3.3:  5 points #
@@ -100,10 +105,9 @@ defmodule Ex03 do
       false
 
   """
-
-  def list_equal . . . "your code"
-
-
+  #defmodule Ex03 do
+  def list_equal([h1|t1],[h2|t2]), do: if(([h1|t1] != [h2|t2]), do: false, else: true)
+  #end
 
   ##############################################################################
   # 3.4:  5 points #
@@ -148,9 +152,49 @@ defmodule Ex03 do
 
   Think a little about a nice way to lay this code out.
   """
+  #defmodule Ex03 do
+    def won({r,s,t,u,v,w,x,y,z}) do
+      cond do
+        (r==u)&&(r==x)&&(r==:x) ->
+          :x
+          (r==u)&&(r==x)&&(r==:o) ->
+            :o
+            (s==v)&&(s==y)&&(s==:x) ->
+              :x
+              (s==v)&&(s==y)&&(s==:o) ->
+                :o
+                (t==w)&&(t==z)&&(t==:x) ->
+                  :x
+                  (t==w)&&(t==z)&&(t==:o) ->
+                    :o
+                    (r==v)&&(r==z)&&(r==:x) ->
+                      :x
+                      (r==v)&&(r==z)&&(r==:o) ->
+                        :o
+                        (t==v)&&(t==x)&&(t==:x) ->
+                          :x
+                          (t==v)&&(t==x)&&(t==:o) ->
+                            :o
+                            (r==s)&&(r==t)&&(r==:x) ->
+                              :x
+                              (r==s)&&(r==t)&&(r==:o) ->
+                                :o
+                                (u==v)&&(u==w)&&(u==:x) ->
+                                  :x
+                                  (u==v)&&(u==w)&&(u==:o) ->
+                                    :o
+                                    (x==y)&&(x==z)&&(x==:x) ->
+                                      :x
+                                      (x==y)&&(x==z)&&(x==:o) ->
+                                        :o
+                                        :error ->
+                                          false
+                                          true ->
 
-  def won . . . "your code"
+      end
 
+end
+#end
 
   ###########################
   # IGNORE FROM HERE TO END #
@@ -163,6 +207,13 @@ defmodule Ex03 do
   end
 
 end
+IO.inspect Ex03.odd_even [1,2,4,7,9]
+IO.inspect Ex03.list_contains([1,2,3,4],3)
+IO.inspect Ex03.list_equal [ 1, 2, 3 ], [1, 2, 3,4]
+IO.inspect Ex03.won {:x, :o, 3,   :x, 5, :o,   :x, 8, :o}
+IO.inspect Ex03.won { :o, :x, 3,   :x, :o, 6,   :x, 5, :o }
+IO.inspect Ex03.won { :o, :x, 3,   :x, :o, 6,   :x, :o, 9 }
+
 
 
 ExUnit.start
